@@ -25,7 +25,7 @@ function stdin(string $inputString)
     for ($i = 0; $i < $strLen; $i++){
         $lenOfParsedString = "{$lenOfParsedString}{$parsedInputString[$i]}";
         $arrayOfParsedString[$arrayIndex][$arrayValue] = $lenOfParsedString;
-        if ($parsedInputString[$i] === " "){
+        if ($parsedInputString[$i] === " " || $parsedInputString === '\0'){
             //$i += 1;
             $lenOfParsedString = "{$parsedInputString[$i]}";
             $arrayValue += 1;

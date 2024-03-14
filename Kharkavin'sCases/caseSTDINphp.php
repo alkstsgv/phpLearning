@@ -35,8 +35,46 @@ function stdin(string $inputString): array
 
 }
 
+function checkCases($func, array $cases): void
+{
 
-$inputString = "grep 0< myfile.txt 0< 0<";
-var_dump(stdin($inputString));
+    print_r($func);
+    print_r($cases);
+    foreach ($cases as [$args, $expectedResult]){
+        print_r($args);
+        $r = $func(...$args);
+        print_r($r);
+        //print_r($expectedResult);
+       /* if ($r !== $expectedResult){
+            throw new \Exception("failed!!!");
+        }*/
+    }
+}
+
+
+/*function cases(): array
+{
+    $arr = [
+        ["grep1"],
+        ["myfile.txt1"]
+    ];
+    
+    return $arr;
+
+}*/
+$inputString = "grep 0< myfile.txt";
+
+
+checkCases(fn($n) => stdin($inputString),
+   [ ["grep1 0< myfile.txt"], ["grep"], ["myfile.txt"]]
+);
+
+//var_dump(checkCases());
+
+
+//var_dump((cases("grep")));
+//var_dump((cases("0<")));
+//var_dump((cases("myfile.txt")));
+//var_dump(stdin($inputString));
 
 
