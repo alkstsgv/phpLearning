@@ -60,7 +60,7 @@ function checkCases($func, array $cases): void
     ];
     
     return $arr;
-
+git
 }*/
 $inputString = "grep 0< myfile.txt";
 
