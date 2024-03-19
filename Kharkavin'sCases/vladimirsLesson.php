@@ -134,23 +134,21 @@ function splitBySpace(string $str): array
             ["q w e r", ["q", "w", "e", "r"]],
  ]);*/
 
-function parse(string $input, $modificator = "0<"): array
+function parse(string $input, $descriptor = "0<"): array
 {
-    //$modificator = "0<";
     $arrWithWords = splitBySpace($input);
     foreach ($arrWithWords as $k => $v) {
         if ($k === 0) {
-            if ($v === $modificator) {
+            if ($v === $descriptor) {
                 return [];
             }
         } elseif ($k < count($arrWithWords) - 1) {
-            if ($v === $modificator){
+            if ($v === $descriptor){
                 unset($arrWithWords[$k]);
                 $arrWithWords = array_values($arrWithWords);
-                print_r($arrWithWords);
             }
         } elseif ($k === count($arrWithWords) - 1) {
-            if($v === $modificator) {
+            if($v === $descriptor) {
                 unset($arrWithWords[$k]);
                 $arrWithWords = array_values($arrWithWords);
             }
