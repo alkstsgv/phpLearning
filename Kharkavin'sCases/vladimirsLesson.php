@@ -191,7 +191,7 @@ checkCases(fn($n) => parse($n), [
     ["grep 0< 0ome/alex/myfile.txt", ["grep", "0ome/alex/myfile.txt"]],
     ["0< grep 0< 0ome/alex/myfile.txt", []],
     ["grep 0< //.home/alex/myfile.txt 0<", []],
-    ["grep 0< 0ome/alex/myfile.txt 0< myfile.txt", ["grep", "0ome/alex/myfile.txt", "myfile.txt"]],
+    ["grep 0< 0ome/alex/myfile.txt 0< myfile.txt", ["grep", "0ome/alex/myfile.txt", "myfile.txt"]]
 ]);
 
 //var_dump(parse($inputString));
