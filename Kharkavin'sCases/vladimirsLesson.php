@@ -150,9 +150,7 @@ function parse(string $input, $modificator = "0<"): array
                 print_r($arrWithWords);
             }
         } elseif ($k === count($arrWithWords) - 1) {
-            if ($v !== $modificator) {
-                $arrWithWords = array_values($arrWithWords);
-            } elseif($v === $modificator) {
+            if($v === $modificator) {
                 unset($arrWithWords[$k]);
                 $arrWithWords = array_values($arrWithWords);
             }
