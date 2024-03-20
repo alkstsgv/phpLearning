@@ -134,10 +134,14 @@ function splitBySpace(string $str): array
             ["q w e r", ["q", "w", "e", "r"]],
  ]);*/
 
-function parse(string $input, $descriptor = "0<"): array
+function parse(string $input): array
 {
-    $arrWithWords = splitBySpace($input);
-    foreach ($arrWithWords as $k => $v) {
+    $arrWithWords = (splitBySpace($input));
+    //$arrWithWords = validate($arrWithWords);
+    if (validate($arrWithWords) === True){
+        print_r("да");
+    }
+    /*foreach ($arrWithWords as $k => $v) {
         if ($k === 0) {
             if ($v === $descriptor) {
                 return [];
@@ -155,12 +159,40 @@ function parse(string $input, $descriptor = "0<"): array
         } else {
             return array_values($arrWithWords);
         }
-    }
+    }*/
     return [];
 }
 
+function validate(array $words, $descriptor = "0<"): bool
+{
+    $index = 0;
+    foreach ($words as $k => $v) {
+        if ($k !== 0 && $k < count($words) - 1  ) {
+            if ($v === $descriptor){
+                $index++;
+                return true;
+            }
+        }
+        print_r($index);
+       /* if ($index > 1) {
+            return false;
+        }elseif ($index === 1) {
+            return true;
+        }else {
+            return false;
+        }*/
+
+
+    }
+
+
+    return true;
+}
+
+
 function checkCases(callable $func, array $cases): void
 {
+    //print_r($cases);
     foreach ($cases as $index => [$args, $expectedResult]) {
         if (is_array($args)) {
             $r = $func(...$args);
@@ -191,7 +223,24 @@ checkCases(fn($n) => parse($n), [
     ["grep 0< 0ome/alex/myfile.txt", ["grep", "0ome/alex/myfile.txt"]],
     ["0< grep 0< 0ome/alex/myfile.txt", []],
     ["grep 0< //.home/alex/myfile.txt 0<", []],
-    ["grep 0< 0ome/alex/myfile.txt 0< myfile.txt", ["grep", "0ome/alex/myfile.txt", "myfile.txt"]]
+    ["grep 0< 0ome/alex/myfile.txt 0< myfile.txt", []]
 ]);
 
+
+
 //var_dump(parse($inputString));
+//var_dump(validate(["dsfdsfsdsfsd sdfsdfds sdfdsfdsf sdf"]));
+
+/*checkCases(fn($n) => validate($n), [
+    [[ ""], false],
+    [["grep myfile.txt"], false],
+    [["grep myfile.txt 0<"], false],
+    [["7"], false],
+    [["0<"], false],
+    [["grep 0< myfile.txt"], true],
+    [["grep 0< ./home/alex/myfile.txt"], true],
+    [["grep 0< 0ome/alex/myfile.txt"], true],
+    [["0< grep 0< 0ome/alex/myfile.txt"], false],
+    [["grep 0< //.home/alex/myfile.txt 0<"], false],
+    [["grep 0< 0ome/alex/myfile.txt 0< myfile.txt"], false]
+]);*/
