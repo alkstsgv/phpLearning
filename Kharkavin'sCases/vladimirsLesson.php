@@ -134,9 +134,19 @@ function splitBySpace(string $str): array
             ["q w e r", ["q", "w", "e", "r"]],
  ]);*/
 
+function validate(array $words, $descriptor = "0<"): bool
+{
+
+    return false;
+}
+
+
+
+
 function parse(string $input, $descriptor = "0<"): array
 {
     $arrWithWords = splitBySpace($input);
+    $arrWithWords = validate($arrWithWords);
     foreach ($arrWithWords as $k => $v) {
         if ($k === 0) {
             if ($v === $descriptor) {
@@ -159,7 +169,7 @@ function parse(string $input, $descriptor = "0<"): array
     return [];
 }
 
-function checkCases(callable $func, array $cases): void
+/*function checkCases(callable $func, array $cases): void
 {
     foreach ($cases as $index => [$args, $expectedResult]) {
         if (is_array($args)) {
@@ -175,12 +185,28 @@ function checkCases(callable $func, array $cases): void
         echo "Success\n";
     }
 
+}*/
+
+
+function checkCases(callable $func, array $cases): void
+{
+    $numOfCase = 0;
+    foreach ($cases as $index => [$args, $expectedResult]) {
+        $numOfCase++;
+        $r = $func(...$args);
+        if ($r !== $expectedResult) {
+            echo "Failed! Test $numOfCase\n, expected {$expectedResult} != {$r}";
+            $index++;
+            // throw new \Exception("failed: $index");
+        }
+        echo "Success: Test $numOfCase\n";
+    }
 }
 
 $inputString = "grep 0< //.home/alex/myfile.txt 0<";
 
 
-checkCases(fn($n) => parse($n), [
+/*checkCases(fn($n) => parse($n), [
     ["", []],
     ["grep myfile.txt", []],
     ["grep myfile.txt 0<", []],
@@ -192,6 +218,25 @@ checkCases(fn($n) => parse($n), [
     ["0< grep 0< 0ome/alex/myfile.txt", []],
     ["grep 0< //.home/alex/myfile.txt 0<", []],
     ["grep 0< 0ome/alex/myfile.txt 0< myfile.txt", ["grep", "0ome/alex/myfile.txt", "myfile.txt"]]
-]);
+]);*/
 
 //var_dump(parse($inputString));
+
+
+
+
+checkCases(fn($n) => validate($n), [
+    [[[""]], false],
+    [[["grep myfile.txt"]], false],
+    [[["grep myfile.txt 0<"]], false],
+    [[["7"]], false],
+    [[["0<"]], false],
+    [[["grep 0< myfile.txt"]], true],
+    [[["grep 0< ./home/alex/myfile.txt"]], true],
+    [[["grep 0< 0ome/alex/myfile.txt"]], true],
+    [[["0< grep 0< 0ome/alex/myfile.txt"]], false],
+    [[["grep 0< //.home/alex/myfile.txt 0<"]], false],
+    [[["grep 0< 0ome/alex/myfile.txt 0< myfile.txt"]], false]
+]);
+
+//var_dump(validate($input));
