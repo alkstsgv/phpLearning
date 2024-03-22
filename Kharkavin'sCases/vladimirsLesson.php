@@ -134,9 +134,22 @@ function splitBySpace(string $str): array
             ["q w e r", ["q", "w", "e", "r"]],
  ]);*/
 
-function validate(array $words, $descriptor = "0<"): bool
+function is_valid(array $words, $descriptor = "0<"): bool
 {
+    $words = implode($words);
+    $words = splitBySpace($words);
+    $index = 0;
+    //print_r($words);
+    foreach($words as $k => $v){
 
+       if($v === $descriptor){
+           $index++;
+       }
+       if ($k - $index === 1){
+           return true;
+       }
+      // print_r("index = " . $index . " " . PHP_EOL .  "k = " . $k);
+    }
     return false;
 }
 
@@ -225,7 +238,7 @@ $inputString = "grep 0< //.home/alex/myfile.txt 0<";
 
 
 
-checkCases(fn($n) => validate($n), [
+checkCases(fn($n) => is_valid($n), [
     [[[""]], false],
     [[["grep myfile.txt"]], false],
     [[["grep myfile.txt 0<"]], false],
@@ -239,4 +252,5 @@ checkCases(fn($n) => validate($n), [
     [[["grep 0< 0ome/alex/myfile.txt 0< myfile.txt"]], false]
 ]);
 
-//var_dump(validate($input));
+//$inputArr = ["grep 0< //.home/alex/myfile.txt 0<"];
+//var_dump(is_valid($inputArr));
