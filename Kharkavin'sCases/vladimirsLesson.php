@@ -134,65 +134,52 @@ function splitBySpace(string $str): array
             ["q w e r", ["q", "w", "e", "r"]],
  ]);*/
 
-function parse(string $input): array
+function is_valid(array $words, string $descriptor = "0<"): bool
 {
-    $arrWithWords = (splitBySpace($input));
-    //$arrWithWords = validate($arrWithWords);
-    if (validate($arrWithWords) === True){
-        print_r("да");
-    }
-    /*foreach ($arrWithWords as $k => $v) {
-        if ($k === 0) {
-            if ($v === $descriptor) {
-                return [];
+    $words = implode($words);
+    $words = splitBySpace($words);
+    $index = 0;
+
+    foreach ($words as $k => $v) {
+        if ($k === $k && $v === $descriptor) {
+            if ($k > 0 && $k < count($words) - 1) {
+                $index++;
+            } else {
+                return false;
             }
-        } elseif ($k < count($arrWithWords) - 1) {
+        }
+    }
+    if ($index === 1) {
+       return true;
+    } elseif($index > 1) {
+        return false;
+    }
+    return false;
+}
+
+
+
+
+function parse(string $input, $descriptor = "0<"): array
+{
+    $arrWithWords = splitBySpace($input);
+    $valid = is_valid($arrWithWords);
+    if ($valid === false) {
+        return [];
+    } else {
+        print_r($arrWithWords);
+        foreach ($arrWithWords as $k => $v){
             if ($v === $descriptor){
                 unset($arrWithWords[$k]);
-                $arrWithWords = array_values($arrWithWords);
+                return $arrWithWords;
             }
-        } elseif ($k === count($arrWithWords) - 1) {
-            if($v === $descriptor) {
-                unset($arrWithWords[$k]);
-                $arrWithWords = array_values($arrWithWords);
-            }
-        } else {
-            return array_values($arrWithWords);
         }
-    }*/
+    }
     return [];
 }
 
-function validate(array $words, $descriptor = "0<"): bool
-{
-    $index = 0;
-    foreach ($words as $k => $v) {
-        if ($k !== 0 && $k < count($words) - 1  ) {
-            if ($v === $descriptor){
-                $index++;
-                return true;
-            }
-        }
-        print_r($index);
-       /* if ($index > 1) {
-            return false;
-        }elseif ($index === 1) {
-            return true;
-        }else {
-            return false;
-        }*/
-
-
-    }
-
-
-    return true;
-}
-
-
 function checkCases(callable $func, array $cases): void
 {
-    //print_r($cases);
     foreach ($cases as $index => [$args, $expectedResult]) {
         if (is_array($args)) {
             $r = $func(...$args);
@@ -209,7 +196,24 @@ function checkCases(callable $func, array $cases): void
 
 }
 
+
+//function checkCases(callable $func, array $cases): void
+//{
+//    $numOfCase = 0;
+//    foreach ($cases as $index => [$args, $expectedResult]) {
+//        $numOfCase++;
+//        $r = $func(...$args);
+//        if ($r !== $expectedResult) {
+//            echo "Failed! Test $numOfCase\n, expected {$expectedResult} != {$r}";
+//            $index++;
+//            // throw new \Exception("failed: $index");
+//        }
+//        echo "Success: Test $numOfCase\n";
+//    }
+//}
+
 $inputString = "grep 0< //.home/alex/myfile.txt 0<";
+
 
 
 checkCases(fn($n) => parse($n), [
@@ -223,24 +227,27 @@ checkCases(fn($n) => parse($n), [
     ["grep 0< 0ome/alex/myfile.txt", ["grep", "0ome/alex/myfile.txt"]],
     ["0< grep 0< 0ome/alex/myfile.txt", []],
     ["grep 0< //.home/alex/myfile.txt 0<", []],
-    ["grep 0< 0ome/alex/myfile.txt 0< myfile.txt", []]
+    ["grep 0< 0ome/alex/myfile.txt 0< myfile.txt", ["grep", "0ome/alex/myfile.txt", "myfile.txt"]]
 ]);
 
-
-
 //var_dump(parse($inputString));
-//var_dump(validate(["dsfdsfsdsfsd sdfsdfds sdfdsfdsf sdf"]));
 
-/*checkCases(fn($n) => validate($n), [
-    [[ ""], false],
-    [["grep myfile.txt"], false],
-    [["grep myfile.txt 0<"], false],
-    [["7"], false],
-    [["0<"], false],
-    [["grep 0< myfile.txt"], true],
-    [["grep 0< ./home/alex/myfile.txt"], true],
-    [["grep 0< 0ome/alex/myfile.txt"], true],
-    [["0< grep 0< 0ome/alex/myfile.txt"], false],
-    [["grep 0< //.home/alex/myfile.txt 0<"], false],
-    [["grep 0< 0ome/alex/myfile.txt 0< myfile.txt"], false]
+
+
+
+/*checkCases(fn($n) => is_valid($n), [
+    [[[""]], false],
+    [[["grep myfile.txt"]], false],
+    [[["grep myfile.txt 0<"]], false],
+    [[["7"]], false],
+    [[["0<"]], false],
+    [[["grep 0< myfile.txt"]], true],
+    [[["grep 0< ./home/alex/myfile.txt"]], true],
+    [[["grep 0< 0ome/alex/myfile.txt"]], true],
+    [[["0< grep 0< 0ome/alex/myfile.txt"]], false],
+    [[["grep 0< //.home/alex/myfile.txt 0<"]], false],
+    [[["grep 0< 0ome/alex/myfile.txt 0< myfile.txt"]], false]
 ]);*/
+//
+//$inputArr = ["0<"];
+//var_dump(is_valid($inputArr));
