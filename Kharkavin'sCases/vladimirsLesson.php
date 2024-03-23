@@ -105,7 +105,7 @@ function trimSpaces(string $str): string
 
 function splitBySpace(string $str): array
 {
-    $str = trimSpaces($str);
+    //$str = trimSpaces($str);
     $arr = [];
     $word = "";
     for ($i = 0; $i < strlen($str); $i++) {
@@ -136,8 +136,6 @@ function splitBySpace(string $str): array
 
 function is_valid(array $words, string $descriptor = "0<"): bool
 {
-    $words = implode($words);
-    $words = splitBySpace($words);
     $index = 0;
 
     foreach ($words as $k => $v) {
@@ -163,15 +161,15 @@ function is_valid(array $words, string $descriptor = "0<"): bool
 function parse(string $input, $descriptor = "0<"): array
 {
     $arrWithWords = splitBySpace($input);
+
+    var_dump(is_valid($arrWithWords));
     $valid = is_valid($arrWithWords);
-    if ($valid === false) {
-        return [];
-    } else {
-        print_r($arrWithWords);
-        foreach ($arrWithWords as $k => $v){
-            if ($v === $descriptor){
+    if ($valid) {
+        foreach ($arrWithWords as $k => $v) {
+            if ($v === $descriptor) {
+                print_r($v);
                 unset($arrWithWords[$k]);
-                return $arrWithWords;
+                return array_values($arrWithWords);
             }
         }
     }
@@ -212,7 +210,6 @@ function checkCases(callable $func, array $cases): void
 //    }
 //}
 
-$inputString = "grep 0< //.home/alex/myfile.txt 0<";
 
 
 
@@ -227,10 +224,9 @@ checkCases(fn($n) => parse($n), [
     ["grep 0< 0ome/alex/myfile.txt", ["grep", "0ome/alex/myfile.txt"]],
     ["0< grep 0< 0ome/alex/myfile.txt", []],
     ["grep 0< //.home/alex/myfile.txt 0<", []],
-    ["grep 0< 0ome/alex/myfile.txt 0< myfile.txt", ["grep", "0ome/alex/myfile.txt", "myfile.txt"]]
+    ["grep 0< 0ome/alex/myfile.txt 0< myfile.txt", []]
 ]);
 
-//var_dump(parse($inputString));
 
 
 
@@ -249,5 +245,10 @@ checkCases(fn($n) => parse($n), [
     [[["grep 0< 0ome/alex/myfile.txt 0< myfile.txt"]], false]
 ]);*/
 //
-//$inputArr = ["0<"];
+
+
+//$inputString = "grep 0< myfile.txt";
+//var_dump(parse($inputString));
+//
+//$inputArr = ["grep 0< myfile.txt"];
 //var_dump(is_valid($inputArr));
