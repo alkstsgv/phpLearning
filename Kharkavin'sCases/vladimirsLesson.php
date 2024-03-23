@@ -105,7 +105,7 @@ function trimSpaces(string $str): string
 
 function splitBySpace(string $str): array
 {
-    $str = trimSpaces($str);
+    //$str = trimSpaces($str);
     $arr = [];
     $word = "";
     for ($i = 0; $i < strlen($str); $i++) {
@@ -136,8 +136,6 @@ function splitBySpace(string $str): array
 
 function is_valid(array $words, string $descriptor = "0<"): bool
 {
-    $words = implode($words);
-    $words = splitBySpace($words);
     $index = 0;
 
     foreach ($words as $k => $v) {
@@ -160,19 +158,21 @@ function is_valid(array $words, string $descriptor = "0<"): bool
 
 
 
-function parse(string $input): array
+function parse(string $input, $descriptor = "0<"): array
 {
     $arrWithWords = splitBySpace($input);
-    $valid = is_valid($arrWithWords);
+
     var_dump(is_valid($arrWithWords));
-//    foreach ($arrWithWords as $k => $v) {
-//        if (is_valid($arrWithWords) === true) {
-//            return $arrWithWords;
-//            var_dump(is_valid($arrWithWords));
-//        } else {
-//            return [];
-//        }
-//    }
+    $valid = is_valid($arrWithWords);
+    if ($valid) {
+        foreach ($arrWithWords as $k => $v) {
+            if ($v === $descriptor) {
+                print_r($v);
+                unset($arrWithWords[$k]);
+                return array_values($arrWithWords);
+            }
+        }
+    }
     return [];
 }
 
@@ -213,19 +213,19 @@ function checkCases(callable $func, array $cases): void
 
 
 
-//checkCases(fn($n) => parse($n), [
-//    ["", []],
-//    ["grep myfile.txt", []],
-//    ["grep myfile.txt 0<", []],
-//    ["7", []],
-//    ["0<", []],
-//    ["grep 0< myfile.txt", ["grep", "myfile.txt"]],
-//    ["grep 0< ./home/alex/myfile.txt", ["grep", "./home/alex/myfile.txt"]],
-//    ["grep 0< 0ome/alex/myfile.txt", ["grep", "0ome/alex/myfile.txt"]],
-//    ["0< grep 0< 0ome/alex/myfile.txt", []],
-//    ["grep 0< //.home/alex/myfile.txt 0<", []],
-//    ["grep 0< 0ome/alex/myfile.txt 0< myfile.txt", []]
-//]);
+checkCases(fn($n) => parse($n), [
+    ["", []],
+    ["grep myfile.txt", []],
+    ["grep myfile.txt 0<", []],
+    ["7", []],
+    ["0<", []],
+    ["grep 0< myfile.txt", ["grep", "myfile.txt"]],
+    ["grep 0< ./home/alex/myfile.txt", ["grep", "./home/alex/myfile.txt"]],
+    ["grep 0< 0ome/alex/myfile.txt", ["grep", "0ome/alex/myfile.txt"]],
+    ["0< grep 0< 0ome/alex/myfile.txt", []],
+    ["grep 0< //.home/alex/myfile.txt 0<", []],
+    ["grep 0< 0ome/alex/myfile.txt 0< myfile.txt", []]
+]);
 
 
 
@@ -247,8 +247,8 @@ function checkCases(callable $func, array $cases): void
 //
 
 
-$inputString = "grep 0< myfile.txt";
-var_dump(parse($inputString));
-
-$inputArr = ["grep 0< myfile.txt"];
-var_dump(is_valid($inputArr));
+//$inputString = "grep 0< myfile.txt";
+//var_dump(parse($inputString));
+//
+//$inputArr = ["grep 0< myfile.txt"];
+//var_dump(is_valid($inputArr));
