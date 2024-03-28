@@ -7,16 +7,25 @@ function cutString(string $original, string $needed): string
     $index = 0;
     $a = 0;
     $r = "";
+    $lenOfSubstr = (int)strlen($needed);
+
     while($i !== strlen($original)) {
-        if ($needed[$index] === $original[$i]) {
-            print_r($needed[$index] . PHP_EOL);
+        if (($needed[$index] === $original[$i])) {
+            //print_r($needed[$index] . PHP_EOL);
             //print_r($original[$i] . PHP_EOL);
             $index++;
             $i++;
-
+            if($index === $lenOfSubstr){
+                $index = 0;
+            }
             continue;
 
-        } elseif($needed[$index] !== $original[$i]) {
+
+
+        } else {
+            //print_r($needed[$index] . PHP_EOL);
+            print_r($original[$i] . PHP_EOL);
+            $r = $original[$i];
             $i++;
             $index = 0;
 
@@ -24,6 +33,22 @@ function cutString(string $original, string $needed): string
         //print_r($needed[$index] . PHP_EOL  . $original[$i]);
     }
 
+//    if($index === $lenOfSubstr) {
+//        $index = 0;
+//        $i++;
+//        continue;
+//    }elseif($index <= $lenOfSubstr){
+//
+//
+//        if (($needed[$index] === $original[$i])) {
+//            print_r($needed[$index] . PHP_EOL);
+//            print_r($original[$i] . PHP_EOL);
+//            $index++;
+//            $i++;
+//            continue;
+//        }
+//        }
+//    }
 
     return $r;
 }
@@ -56,4 +81,4 @@ function cutString(string $original, string $needed): string
 //
 //]);
 
-var_dump(cutString("Wowoowow", "woo"));
+var_dump(cutString("woothreewyuwotwoo", "woo"));
