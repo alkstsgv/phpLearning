@@ -9,24 +9,28 @@ function cutString(string $original, string $needed): string
     $r = "";
     $lenOfSubstr = (int)strlen($needed);
 
-    for($i = 0; $i < strlen($original); $i++) {
+    for ($i = 0; $i < strlen($original); $i++) {
         if (($needed[$index] === $original[$i])) {
+            //print_r("index  " . $index . PHP_EOL);
+            //print_r($a);
             //print_r($needed[$index] . PHP_EOL);
-            print_r($original[$i] . PHP_EOL);
+            print_r($original[$i] . " " . $i . PHP_EOL);
+           // $a = $i;
             $index++;
             //$i++;
 
             //continue;
 
 
-
         } else {
             //print_r($needed[$index] . PHP_EOL);
             //print_r($original[$i] . PHP_EOL);
-            $r = $original[$i];
-            $i++;
-            $index = 0;
+            $r = "{$r}{$original[$i]}";
 
+           // $i = $a;
+            $index = 0;
+            //continue;
+            //print_r("index  " . $index . PHP_EOL);
 
 
 
@@ -35,12 +39,49 @@ function cutString(string $original, string $needed): string
             $index = 0;
         }
 
-        //print_r($needed[$index] . PHP_EOL  . $original[$i]);
+        //print_r($original[$i] . " " . $i . PHP_EOL);
     }
 
 
     return $r;
 }
+
+//function cutString(string $original, string $needed): string
+//{
+//    //$i = 0;
+//    $index = 0;
+//    $a = 0;
+//    $r = "";
+//    $lenOfSubstr = (int)strlen($needed);
+//
+//    for ($i = 0; $i < strlen($original); $i++) {
+//        if (($needed[$index] === $original[$i]) && $index < $lenOfSubstr) {
+//            //print_r($original[$i] . PHP_EOL);
+//            $index++;
+//
+//        } /*elseif (($needed[$index] === $original[$i]) && $index === $lenOfSubstr) {
+//            //print_r($original[$i] . PHP_EOL);
+//            $index = 0;
+//
+//        } */elseif (($needed[$index] !== $original[$i]) && $index = 0) {
+//            print_r($original[$i] . PHP_EOL);
+//            //$index = 0;
+//            $i++;
+//        } elseif (($needed[$index] !== $original[$i]) && $index < $lenOfSubstr) {
+//            print_r($original[$i] . PHP_EOL);
+//            $i--;
+//            $index = 0;
+//        } else {
+//            $index = 0;
+//
+//        }
+//    }
+//
+//
+//    return $r;
+//}
+
+var_dump(cutString("kppphhukppparse", "ppparse"));
 
 //function cutString(string $original, string $needed): string
 //{
@@ -108,4 +149,3 @@ function cutString(string $original, string $needed): string
 //
 //]);
 
-var_dump(cutString("woo6yhreewyjujkwotwoo7", "woo"));
