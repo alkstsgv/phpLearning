@@ -1,42 +1,54 @@
 <?php declare(strict_types=1);
 
+//function cutString(string $original, string $needed): string
+//{
+//    $j = 0;
+//    for ($i = 0; $i < strlen($original);$i++){
+//        //print_r($original[$i]);
+//        if (($i <= (strlen($original) - strlen($needed))) && ($j < strlen($needed)) && ($original[$i + $j] === $needed[$j] )) {
+//            $j++;
+//
+//        } elseif ($i <= (strlen($original) - strlen($needed)) && ($j < strlen($needed))){
+//            //print_r($original[$i]);
+//            $i++;
+//            $j = 0;
+//        }
+//    }
+//    return "";
+//}
 
 function cutString(string $original, string $needed): string
 {
     $i = 0;
-    $index = 0;
+    $j = 0;
     $a = 0;
     $r = "";
     $lenOfSubstr = (int)strlen($needed);
 
-    for ($i = 0; $i < strlen($original); $i++) {
-        if (($needed[$index] === $original[$i])) {
-            //print_r("index  " . $index . PHP_EOL);
-            //print_r($a);
-            //print_r($needed[$index] . PHP_EOL);
+    for ($i = 0; $i <strlen($original); $i++) {
+
+        if (($needed[$j] === $original[$i])) {
             print_r($original[$i] . " " . $i . PHP_EOL);
-           // $a = $i;
-            $index++;
+            $j++;
             //$i++;
 
             //continue;
 
 
         } else {
-            //print_r($needed[$index] . PHP_EOL);
+            //print_r($needed[$j] . PHP_EOL);
             //print_r($original[$i] . PHP_EOL);
             $r = "{$r}{$original[$i]}";
-
-           // $i = $a;
-            $index = 0;
-            //continue;
-            //print_r("index  " . $index . PHP_EOL);
+            $i++;
+            $j = 0;
+            continue;
+            //print_r("$j  " . $j . PHP_EOL);
 
 
 
         }
-        if($index === $lenOfSubstr){
-            $index = 0;
+        if($j === $lenOfSubstr){
+            $j = 0;
         }
 
         //print_r($original[$i] . " " . $i . PHP_EOL);
@@ -55,73 +67,46 @@ function cutString(string $original, string $needed): string
 //    $lenOfSubstr = (int)strlen($needed);
 //
 //    for ($i = 0; $i < strlen($original); $i++) {
-//        if (($needed[$index] === $original[$i]) && $index < $lenOfSubstr) {
+//        if (($needed[$index] === $original[$i])) {
+//            //print_r($needed[$index] . " " . $i . " "  . PHP_EOL);
+//            print_r($original[$i] . " " . $i  . PHP_EOL);
+//            $a++;
+//            //print_r($a . " ");
 //            //print_r($original[$i] . PHP_EOL);
-//            $index++;
+//            if ($index < $lenOfSubstr){
+//                //print_r($original[$i] . " " . $i . PHP_EOL);
+//                $index++;
+//                //$i++;
+//                //continue;
 //
-//        } /*elseif (($needed[$index] === $original[$i]) && $index === $lenOfSubstr) {
-//            //print_r($original[$i] . PHP_EOL);
+//            } /*elseif ($index < $lenOfSubstr){
+//                //print_r($original[$i] . " " . $i . PHP_EOL);
+//                $index++;
+//                //$i++;
+//                continue;
+//            } */else {
+//                //print_r($original[$i] . " " . $i . PHP_EOL);
+//                $index = 0;
+//                $i = $a;
+//                //continue;
+//            }
+//        } elseif ($needed[$index] !== $original[$i]) {
+//            //print_r($needed[$index] . " " . $i . " "  . PHP_EOL);
+//            //print_r($original[$i] . " " . $i . PHP_EOL);
+//            $a++;
+//            //print_r($a . PHP_EOL);
 //            $index = 0;
-//
-//        } */elseif (($needed[$index] !== $original[$i]) && $index = 0) {
-//            print_r($original[$i] . PHP_EOL);
-//            //$index = 0;
-//            $i++;
-//        } elseif (($needed[$index] !== $original[$i]) && $index < $lenOfSubstr) {
-//            print_r($original[$i] . PHP_EOL);
-//            $i--;
-//            $index = 0;
-//        } else {
-//            $index = 0;
-//
+//            $i = $a;
 //        }
+//
+//        //print_r($a);
 //    }
 //
 //
 //    return $r;
 //}
 
-var_dump(cutString("kppphhukppparse", "ppparse"));
-
-//function cutString(string $original, string $needed): string
-//{
-//    $i = 0;
-//    $index = 0;
-//    $a = 0;
-//    $r = "";
-//    $lenOfSubstr = (int)strlen($needed);
-//
-//    for($i = 0;$i < strlen($original); $i++) {
-//        if (($needed[$index] === $original[$i])) {
-////            for ($y = 0; $y < strlen($needed); $y++) {
-////                //print_r($needed[$index] . PHP_EOL);
-//                print_r($original[$i] . PHP_EOL);
-//                $index++;
-//                $i++;
-////            }
-//            if ($index === $lenOfSubstr) {
-//                $index = 0;
-//            }
-//            if (($needed[$index] !== $original[$i])) {
-//                $index = 0;
-//                continue;
-//            }
-//        } else {
-//                //print_r($needed[$index] . PHP_EOL);
-//                //print_r($original[$i] . PHP_EOL);
-//                $index = 0;
-//                $r = $original[$i];
-//                //$i++;
-//
-//                continue;
-//            }
-//            //print_r($needed[$index] . PHP_EOL  . $original[$i]);
-//        }
-//
-//
-//
-//    return $r;
-//}
+var_dump(cutString("Wowoow", "woo"));
 
 
 //function checkCases(callable $func, array $cases): void
