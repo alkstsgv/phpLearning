@@ -19,44 +19,42 @@
 
 function cutString(string $original, string $needed): string
 {
-    $i = 0;
-    $j = 0;
     $a = 0;
+    $b = 0;
+    $j = 0;
     $r = "";
     $lenOfSubstr = (int)strlen($needed);
 
-    for ($i = 0; $i <strlen($original); $i++) {
+    for ($i = 0; $i < strlen($original); $i++) {
+        for ($j = 0; $j < $lenOfSubstr; $j++) {
+            if ($needed[0] === $original[$i] && $j === 0) {
 
-        if (($needed[$j] === $original[$i])) {
-            print_r($original[$i] . " " . $i . PHP_EOL);
-            $j++;
-            //$i++;
+                $a++;
+                $r .= $original[$i];
+//                print_r($original[$i] . " " . $i . " " . $needed[$j] . " " . $j . PHP_EOL);
+                if ($a === $lenOfSubstr - 1){
+//                    print_r("yes" . "{$a}");
+                }
+            }
+            if ($needed[$j] === $original[$i] && $j !== 0 && $a !== 0) {
+                $b++;
+                $r .= $original[$i];
+//                if ($b === $lenOfSubstr - 1){
+////                    print_r("yes" . "{$a}");
+//                }
+//                print_r($original[$i] . " " . $i . " " . $needed[$j] . " " . $j . PHP_EOL);
+                break;
+            }
+            if ($j === $lenOfSubstr - 1){
+                print_r($original[$i] . " " . $i . " " . $needed[$j] . " " . $j . PHP_EOL);
 
-            //continue;
-
-
-        } else {
-            //print_r($needed[$j] . PHP_EOL);
-            //print_r($original[$i] . PHP_EOL);
-            $r = "{$r}{$original[$i]}";
-            $i++;
-            $j = 0;
-            continue;
-            //print_r("$j  " . $j . PHP_EOL);
-
-
+            }
 
         }
-        if($j === $lenOfSubstr){
-            $j = 0;
-        }
-
-        //print_r($original[$i] . " " . $i . PHP_EOL);
     }
-
-
     return $r;
 }
+var_dump(cutString("Wowoowoowoow", "woo"));
 
 //function cutString(string $original, string $needed): string
 //{
@@ -106,7 +104,7 @@ function cutString(string $original, string $needed): string
 //    return $r;
 //}
 
-var_dump(cutString("Wowoow", "woo"));
+
 
 
 //function checkCases(callable $func, array $cases): void
