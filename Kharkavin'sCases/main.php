@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-function cutString(string $original, string $needed): string
+/*function cutString(string $original, string $needed): string
 {
     $sumOfmatchesOfFirstSymbolOfSubstr = 0; // a
     $sumOfmatchesLeavedSymbolsOfSubstr = 0; // b
@@ -30,12 +30,33 @@ function cutString(string $original, string $needed): string
             }
 
 
+
         }
     }
     return $result;
 }
-var_dump(cutString("123Wowoowoow", "woo"));
+var_dump(cutString("Wowwoow", "woo"));*/
 
+function cutString(string $original, string $needed): string
+{
+    print_r($original . " " . "ttt" . $needed);
+    $j = 0;
+    $result = "";
+    for ($i = 0; $i < strlen($original); $i++) {
+        if ($original[$i] === $needed[$j]) {
+            $result .= $needed[$j];
+            $j++;
+        } else {
+            $j = 0;
+        }
+    }
+    return $result;
+}
+var_dump(cutString("Wowoow", "woo"));
+
+
+
+//
 //function checkCases(callable $func, array $cases): void
 //{
 //    foreach ($cases as $index => [$args, $expectedResult]) {
@@ -47,17 +68,15 @@ var_dump(cutString("123Wowoowoow", "woo"));
 //        if ($r !== $expectedResult) {
 //            var_dump($r);
 //            $index++;
-//            throw new \Exception("failed: $index");
+//            throw new \Exception("failed: $index" . " " . "r=" .  $r . PHP_EOL . "expectedResult=" . $expectedResult . PHP_EOL);
 //        }
 //        echo "Success\n";
 //    }
 //
 //}
 //
-//checkCases(fn($n) => cutString($n), [
-//    [["f", "f"], []],
-////    ["grep myfile.txt", []],
-////    ["grep myfile.txt 0<", []],
+//checkCases(fn($arg1, $arg2) => cutString($arg1, $arg2), [
+//    ["w", "w"],[ "w"]
 //
 //]);
 
