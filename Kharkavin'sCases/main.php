@@ -43,16 +43,15 @@ function cutString(string $original, string $needed): string
     $result = "";
     for ($i = 0; $i < strlen($original); $i++) {
         if ($original[$i] === $needed[$j]) {
-            $result .= $original[$i];
             $j++;
         } else {
+            $result .= $original[$i];
             $j = 0;
-            $i++;
         }
     }
     return $result;
 }
-var_dump(cutString("Wowoow44woo", "woo"));
+var_dump(cutString("Wowoow", "woo"));
 
 
 
