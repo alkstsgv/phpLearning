@@ -39,20 +39,20 @@ var_dump(cutString("Wowwoow", "woo"));*/
 
 function cutString(string $original, string $needed): string
 {
-    print_r($original . " " . "ttt" . $needed);
     $j = 0;
     $result = "";
     for ($i = 0; $i < strlen($original); $i++) {
         if ($original[$i] === $needed[$j]) {
-            $result .= $needed[$j];
+            $result .= $original[$i];
             $j++;
         } else {
             $j = 0;
+            $i++;
         }
     }
     return $result;
 }
-var_dump(cutString("Wowoow", "woo"));
+var_dump(cutString("Wowoow44woo", "woo"));
 
 
 
