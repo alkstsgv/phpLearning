@@ -75,7 +75,7 @@ var_dump(cutString("Wowoow", "woo"));
 //}
 //
 //checkCases(fn($arg1, $arg2) => cutString($arg1, $arg2), [
-//    ["w", "w"],[ "w"]
+//
 //
 //]);
 
