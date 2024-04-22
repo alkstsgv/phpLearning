@@ -11,7 +11,7 @@ function towersOfHanoi(string $userInput = null): string
     return $line ? $line : $nothingInput;
 }
 
-function moveDetails(): void
+function setArrays(): void
 {
     $initalArrayWithDetails = array_reverse([
         "0" => 0,
@@ -22,34 +22,38 @@ function moveDetails(): void
     $arrayWithoutDetailsNumOne = ["0", "1", "2", "0"];
     $arrayWithoutDetailsNumTwo = [];
 
-    foreach ($initalArrayWithDetails as $v) {
+    
+
+}
+
+function setMovingRules (array $defaultPyramid, array $pyramidNum1, array $pyramidNum2): void
+{
+    foreach ($defaultPyramid as $v) {
 
         print_r("|" . $v . "|" . " " . " ");
-        if (!$arrayWithoutDetailsNumOne) {
+        if (!$pyramidNum1) {
             print_r("|" . " " . "|" . " " . " ");
         }
-        if (!$arrayWithoutDetailsNumTwo) {
+        if (!$pyramidNum2) {
             print_r("|" . " " . "|" . " " . PHP_EOL);
         }
 
     }
 
-    foreach ($arrayWithoutDetailsNumOne as $v) {
-        $lastValueOfArrayWithoutDetailsNumOne = $arrayWithoutDetailsNumOne[count($arrayWithoutDetailsNumOne) - 1];
-        if (count($arrayWithoutDetailsNumOne) === 1){
+    foreach ($defaultPyramid as $v) {
+        $lastValueOfArrayPyramidNum1 = $pyramidNum1[count($pyramidNum1) - 1];
+        if (count($pyramidNum1) === 1){
             continue;
         }
-        if (count($arrayWithoutDetailsNumOne) > 1) {
-            if ($lastValueOfArrayWithoutDetailsNumOne <= $arrayWithoutDetailsNumOne[0]){
+        if (count($pyramidNum1) > 1) {
+            if ($lastValueOfArrayWithoutDetailsNumOne <= $pyramidNum1[0]){
                 print_r("капец");
             }
         }
     }
-
-
 }
 
-var_dump(moveDetails());
+var_dump(setArrays());
 //var_dump(towersOfHanoi());
 
 
